@@ -20,7 +20,6 @@ func RunGeoCheck(p interfaces.Vendor, script string, ip string, retry int, netwo
 
 	// use mmdb first, if cannot get record, try remote query 3 times
 	if ret = RunMMDBCheck(ip); ret == nil {
-		utils.DLog("use the remote GEOAPI...")
 		for i := 0; i < structs.WithIn(retry, 1, 3) && (ret == nil || ret.IP == ""); i++ {
 			ret = ExecGeoCheck(p, script, ip, network)
 		}
