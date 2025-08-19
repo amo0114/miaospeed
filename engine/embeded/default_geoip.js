@@ -14,7 +14,7 @@ function handler_ipleak(ip) {
     });
     const ret = safeParse(get(content, "body"));
     return {
-        "ip": get(ret, "query", ""),
+        "ip": get(ret, "ip", ""),
         "isp": get(ret, "isp_name", ""),
         "organization": get(ret, "isp_name", ""),
         "latitude": get(ret, "latitude", 0),
@@ -23,8 +23,8 @@ function handler_ipleak(ip) {
         "asn_organization": get(ret, "isp_name", ""),
         "timezone": get(ret, "time_zone", ""),
         "region": get(ret, "region_name", ""),
-        "city": get(ret, "city", ""),
-        "country": get(ret, "city_name", ""),
+        "city": get(ret, "city_name", ""),
+        "country": get(ret, "country_name", ""),
         "country_code": get(ret, "country_code", ""),
     }
 }
