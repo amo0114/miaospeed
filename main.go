@@ -9,12 +9,22 @@ var BUILDCOUNT string
 var COMMIT string
 var BRAND string
 var VERSION string
+var MihomoVersion string
 
 func main() {
+	PatchConstants()
+	RunCli()
+}
+
+func PatchConstants() {
 	utils.COMPILATIONTIME = COMPILATIONTIME
 	utils.BUILDCOUNT = BUILDCOUNT
 	utils.COMMIT = COMMIT
 	utils.BRAND = BRAND
-	utils.VERSION = VERSION
-	RunCli()
+	if VERSION != "" {
+		utils.VERSION = VERSION
+	}
+	if MihomoVersion != "" {
+		utils.MihomoVersion = MihomoVersion
+	}
 }

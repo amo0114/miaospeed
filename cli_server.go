@@ -37,7 +37,7 @@ func InitConfigServer() *utils.GlobalConfig {
 	}
 	if *allowIP != "" {
 		if *allowIP == "0.0.0.0/0,::/0" {
-			utils.DWarnf("MiaoSpeed Server | allow ip range is set to 0.0.0.0/0,::/0, which means any ip (full stack) can access this server, please use it with caution")
+			utils.DWarnf("MiaoSpeed Server | Allow ip range is set to 0.0.0.0/0,::/0, which means any ip can access this server.")
 		}
 		gcfg.AllowIPs = strings.Split(*allowIP, ",")
 	}
@@ -51,9 +51,9 @@ func InitConfigServer() *utils.GlobalConfig {
 		gcfg.Path = "/"
 	}
 	if gcfg.Path == "/" {
-		utils.DWarnf("MiaoSpeed Server | using an unsafe websocket connection path: %s", gcfg.Path)
+		utils.DWarnf("MiaoSpeed Server | Using an unsafe websocket path: %s", gcfg.Path)
 	} else {
-		utils.DWarnf("MiaoSpeed Server | using a custom websocket connection path: %s", gcfg.Path)
+		utils.DWarnf("MiaoSpeed Server | Using a custom websocket path: %s", gcfg.Path)
 	}
 	if pubKey := utils.ReadFile(*pubKeyStr); pubKey != "" {
 		utils.DLog("Override predefined tls certificates")
@@ -69,7 +69,7 @@ func InitConfigServer() *utils.GlobalConfig {
 func RunCliServer() {
 	fmt.Println(utils.LOGO)
 	InitConfigServer()
-	utils.DWarnf("MiaoSpeed speedtesting client %s", utils.VERSION)
+	utils.DWarnf("MiaoSpeed version: %s, vender(mihomo) version: %s", utils.VERSION, utils.MihomoVersion)
 
 	// load maxmind db
 	if utils.LoadMaxMindDB(utils.GCFG.MaxmindDB) != nil {
@@ -87,5 +87,5 @@ func RunCliServer() {
 
 	// clean up
 	service.CleanUpServer()
-	utils.DLog("shutting down.")
+	utils.DLog("Shutting down.")
 }
