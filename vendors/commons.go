@@ -143,13 +143,41 @@ func NetCat(ctx context.Context, p interfaces.Vendor, addr string, data []byte, 
 		return nil, err
 	}
 
-	defer conn.Close()
+	if conn == nil {
+		return nil, fmt.Errorf("connection is nil")
+	}
+
+	defer func(conn net.Conn) {
+		_ = conn.Close()
+	}(conn)
+
+	if ctxTimeout, ok := ctx.Deadline(); ok {
+		if err := conn.SetWriteDeadline(ctxTimeout); err != nil {
+			return nil, fmt.Errorf("failed to set write deadline: %w", err)
+		}
+	}
+
 	if _, err := conn.Write(data); err != nil {
+		var netErr net.Error
+		if errors.As(err, &netErr) && netErr.Timeout() {
+			return nil, fmt.Errorf("write timeout: %w", err)
+		}
 		return nil, err
 	}
 
 	var buf bytes.Buffer
+
+	if ctxTimeout, ok := ctx.Deadline(); ok {
+		if err := conn.SetReadDeadline(ctxTimeout); err != nil {
+			return nil, fmt.Errorf("failed to set read deadline: %w", err)
+		}
+	}
+
 	if _, err := io.Copy(&buf, conn); err != nil {
+		var netErr net.Error
+		if errors.As(err, &netErr) && netErr.Timeout() {
+			return buf.Bytes(), nil
+		}
 		return nil, err
 	}
 
@@ -164,6 +192,12 @@ func NetCatWithRetry(p interfaces.Vendor, retry int, timeoutMillisecond int64, a
 		ctx, cancel := context.WithTimeout(context.Background(), time.Duration(timeoutMillisecond)*time.Millisecond)
 		retBody, err = NetCat(ctx, p, addr, data, network)
 		cancel()
+		if err != nil {
+			var netErr net.Error
+			if errors.As(err, &netErr) && netErr.Timeout() {
+				continue
+			}
+		}
 	}
 
 	return retBody, err
