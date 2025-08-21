@@ -40,6 +40,7 @@ jobs:
           files: ./bin/*
           body_path: './CHANGELOG.md'
           tag_name: ${{ github.ref_name }}
+          token: ${{ secrets.MIAOSPEED_REPO_TOKEN }}
 
       # 发布到另一个仓库 - 使用softprops/action-gh-release
       - name: Release to another repository
