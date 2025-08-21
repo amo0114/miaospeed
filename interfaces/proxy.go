@@ -1,6 +1,8 @@
 package interfaces
 
-import "github.com/airportr/miaospeed/utils/structs"
+import (
+	"strings"
+)
 
 type ProxyType string
 
@@ -30,8 +32,19 @@ var AllProxyTypes = []ProxyType{
 	Vless, Hysteria, Hysteria2, TUIC, Wireguard, SSH, Mieru, AnyTLS,
 }
 
+func (pt *ProxyType) Equal(other ProxyType) bool {
+	ptStr := strings.ToLower(string(*pt))
+	otherStr := strings.ToLower(string(other))
+	return ptStr == otherStr
+}
+
 func Valid(proxyType ProxyType) bool {
-	return structs.Contains(AllProxyTypes, proxyType)
+	for _, pt := range AllProxyTypes {
+		if pt.Equal(proxyType) {
+			return true
+		}
+	}
+	return false
 }
 
 func Parse(proxyType string) ProxyType {

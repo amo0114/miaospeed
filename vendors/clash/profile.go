@@ -25,6 +25,7 @@ func parseProxy(proxyName, proxyPayload string) constant.Proxy {
 
 	if err != nil {
 		utils.DLogf("Vendor Parser | Parse clash profile error, error=%v", err.Error())
+		return nil
 	}
 
 	return proxy
@@ -32,8 +33,10 @@ func parseProxy(proxyName, proxyPayload string) constant.Proxy {
 
 func extractFirstProxy(proxyName, proxyPayload string) constant.Proxy {
 	proxy := parseProxy(proxyName, proxyPayload)
-
-	if proxy != nil && interfaces.Parse(proxy.Type().String()) != interfaces.ProxyInvalid {
+	if proxy == nil {
+		return nil
+	}
+	if interfaces.Parse(proxy.Type().String()) != interfaces.ProxyInvalid {
 		return proxy
 	}
 
