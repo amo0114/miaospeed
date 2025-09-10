@@ -6,19 +6,20 @@ import (
 )
 
 type GlobalConfig struct {
-	Token            string
-	Binder           string
-	WhiteList        []string
-	AllowIPs         []string
-	SpeedLimit       uint64
-	TaskLimit        uint
-	PauseSecond      uint
-	ConnTaskTreading uint
-	MiaoKoSignedTLS  bool
-	NoSpeedFlag      bool
-	EnableIPv6       bool
-	MaxmindDB        string
-	Path             string
+	Token                 string
+	Binder                string
+	WhiteList             []string
+	AllowIPs              []string
+	SpeedLimit            uint64
+	TaskLimit             uint
+	PauseSecond           uint
+	ConnTaskTreading      uint
+	MiaoKoSignedTLS       bool
+	NoSpeedFlag           bool
+	EnableUploadSpeedFlag bool
+	EnableIPv6            bool
+	MaxmindDB             string
+	Path                  string
 }
 
 func (gc *GlobalConfig) InWhiteList(invoker string) bool {

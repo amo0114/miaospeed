@@ -7,9 +7,9 @@ import (
 
 type SlaveRequestConfigsV1 struct {
 	STUNURL           string `yaml:"stunURL,omitempty" cf:"name=🫙 STUN 地址"`
-	DownloadURL       string `yaml:"downloadURL,omitempty" cf:"name=📃 测速文件"`
-	DownloadDuration  int64  `yaml:"downloadDuration,omitempty" cf:"name=⏱️ 测速时长 (单位: 秒)"`
-	DownloadThreading uint   `yaml:"downloadThreading,omitempty" cf:"name=🧶 测速线程数"`
+	DownloadURL       string `yaml:"downloadURL,omitempty" cf:"name=📃 下行测速文件"`
+	DownloadDuration  int64  `yaml:"downloadDuration,omitempty" cf:"name=⏱️ 下行测速时长 (单位: 秒)"`
+	DownloadThreading uint   `yaml:"downloadThreading,omitempty" cf:"name=🧶 下行测速线程数"`
 
 	PingAverageOver uint16 `yaml:"pingAverageOver,omitempty" cf:"name=🧮 多次 Ping 求均值,value"`
 	PingAddress     string `yaml:"pingAddress,omitempty" cf:"name=🏫 URL Ping 地址"`
@@ -24,18 +24,24 @@ type SlaveRequestConfigsV1 struct {
 const (
 	ApiV0 = iota
 	ApiV1 = iota
-	//ApiV2 = iota
+	ApiV2 = iota
 )
 
 type SlaveRequestConfigsV2 struct {
 	*SlaveRequestConfigsV1
-	ApiVersion int `yaml:"apiVersion,omitempty" cf:"name=🧬API版本，用于兼容Miaoko以及其他客户端"`
+	ApiVersion      int    `yaml:"apiVersion,omitempty" cf:"name=🧬API版本，用于兼容Miaoko以及其他客户端"`
+	UploadURL       string `yaml:"uploadURL,omitempty" cf:"name=📃 上行测速文件"`
+	UploadDuration  int64  `yaml:"uploadDuration,omitempty" cf:"name=⏱️ 上行测速时长 (单位: 秒)"`
+	UploadThreading uint   `yaml:"uploadThreading,omitempty" cf:"name=🧶 上行测速线程数"`
 }
 
 func (srcv2 *SlaveRequestConfigsV2) Clone() *SlaveRequestConfigsV2 {
 	return &SlaveRequestConfigsV2{
 		SlaveRequestConfigsV1: srcv2.SlaveRequestConfigsV1.Clone(),
 		ApiVersion:            srcv2.ApiVersion,
+		UploadURL:             srcv2.UploadURL,
+		UploadDuration:        srcv2.UploadDuration,
+		UploadThreading:       srcv2.UploadThreading,
 	}
 }
 

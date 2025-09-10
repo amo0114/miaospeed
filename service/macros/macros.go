@@ -26,8 +26,9 @@ var registeredList = map[interfaces.SlaveRequestMacroType]func() interfaces.Slav
 	interfaces.MacroGeo: func() interfaces.SlaveRequestMacro {
 		return &geo.Geo{}
 	},
-	interfaces.MacroScript: func() interfaces.SlaveRequestMacro { return &script.Script{} },
-	interfaces.MacroSleep:  func() interfaces.SlaveRequestMacro { return &sleep.Sleep{} },
+	interfaces.MacroScript:      func() interfaces.SlaveRequestMacro { return &script.Script{} },
+	interfaces.MacroSleep:       func() interfaces.SlaveRequestMacro { return &sleep.Sleep{} },
+	interfaces.MacroUploadSpeed: func() interfaces.SlaveRequestMacro { return &speed.UploadSpeed{} },
 }
 
 func Find(macroType interfaces.SlaveRequestMacroType) interfaces.SlaveRequestMacro {

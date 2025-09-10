@@ -32,7 +32,9 @@ func RequestUnsafe(ctx context.Context, p interfaces.Vendor, reqOpt *interfaces.
 
 	// check body reader
 	var reader io.Reader = nil
-	if len(reqOpt.Body) > 0 {
+	if reqOpt.Reader != nil {
+		reader = reqOpt.Reader
+	} else if len(reqOpt.Body) > 0 {
 		reader = bytes.NewBuffer(reqOpt.Body)
 	}
 

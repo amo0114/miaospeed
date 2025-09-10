@@ -21,7 +21,8 @@ func InitConfigServer() *utils.GlobalConfig {
 	sflag.Uint64Var(&gcfg.SpeedLimit, "speedlimit", 0, "speed ratelimit (in Bytes per Second), default with no limits")
 	sflag.UintVar(&gcfg.PauseSecond, "pausesecond", 0, "pause such period after each speed job (seconds)")
 	sflag.BoolVar(&gcfg.MiaoKoSignedTLS, "mtls", false, "enable miaoko certs for tls verification")
-	sflag.BoolVar(&gcfg.NoSpeedFlag, "nospeed", false, "decline all speedtest requests")
+	sflag.BoolVar(&gcfg.NoSpeedFlag, "nospeed", false, "decline all download speedtest requests")
+	sflag.BoolVar(&gcfg.EnableUploadSpeedFlag, "upload", false, "decline all upload speedtest requests")
 	sflag.BoolVar(&gcfg.EnableIPv6, "ipv6", false, "enable ipv6 support")
 	sflag.StringVar(&gcfg.MaxmindDB, "mmdb", "", "reroute all geoip query to local mmdbs. for example: test.mmdb,testcity.mmdb")
 	path := sflag.String("path", "", "specific websocket path you want, default '/'")
@@ -69,7 +70,7 @@ func InitConfigServer() *utils.GlobalConfig {
 func RunCliServer() {
 	fmt.Println(utils.LOGO)
 	InitConfigServer()
-	utils.DWarnf("MiaoSpeed version: %s, vender(mihomo) version: %s", utils.VERSION, utils.MihomoVersion)
+	utils.DWarnf("MiaoSpeed version: %s, vendor(mihomo) version: %s", utils.VERSION, utils.MihomoVersion)
 
 	// load maxmind db
 	if utils.LoadMaxMindDB(utils.GCFG.MaxmindDB) != nil {

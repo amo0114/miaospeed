@@ -3,9 +3,12 @@ package interfaces
 type SlaveRequestMatrixType string
 
 const (
-	MatrixAverageSpeed   SlaveRequestMatrixType = "SPEED_AVERAGE"
-	MatrixMaxSpeed       SlaveRequestMatrixType = "SPEED_MAX"
-	MatrixPerSecondSpeed SlaveRequestMatrixType = "SPEED_PER_SECOND"
+	MatrixAverageSpeed         SlaveRequestMatrixType = "SPEED_AVERAGE"
+	MatrixMaxSpeed             SlaveRequestMatrixType = "SPEED_MAX"
+	MatrixPerSecondSpeed       SlaveRequestMatrixType = "SPEED_PER_SECOND"
+	MatrixAverageUploadSpeed   SlaveRequestMatrixType = "USPEED_AVERAGE"
+	MatrixMaxUploadSpeed       SlaveRequestMatrixType = "USPEED_MAX"
+	MatrixPerSecondUploadSpeed SlaveRequestMatrixType = "USPEED_PER_SECOND"
 
 	MatrixUDPType SlaveRequestMatrixType = "UDP_TYPE"
 
@@ -34,6 +37,7 @@ func (srmt *SlaveRequestMatrixType) Valid() bool {
 
 	switch *srmt {
 	case MatrixAverageSpeed, MatrixMaxSpeed, MatrixPerSecondSpeed,
+		MatrixAverageUploadSpeed, MatrixMaxUploadSpeed, MatrixPerSecondUploadSpeed,
 		MatrixUDPType,
 		MatrixInboundGeoIP, MatrixOutboundGeoIP,
 		MatrixScriptTest, MatrixHTTPPing, MatrixRTTPing,

@@ -1,5 +1,7 @@
 package interfaces
 
+import "io"
+
 type RequestOptionsNetwork string
 
 const (
@@ -30,4 +32,5 @@ type RequestOptions struct {
 	Body    []byte
 	NoRedir bool
 	Network RequestOptionsNetwork
+	Reader  io.Reader
 }

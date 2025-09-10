@@ -24,43 +24,26 @@ import (
 )
 
 var registeredList = map[interfaces.SlaveRequestMatrixType]func() interfaces.SlaveRequestMatrix{
-	interfaces.MatrixHTTPPing: func() interfaces.SlaveRequestMatrix {
-		return &httpping.HTTPPing{}
-	},
-	interfaces.MatrixRTTPing: func() interfaces.SlaveRequestMatrix {
-		return &rttping.RTTPing{}
-	},
-	interfaces.MatrixUDPType: func() interfaces.SlaveRequestMatrix {
-		return &udptype.UDPType{}
-	},
-	interfaces.MatrixAverageSpeed: func() interfaces.SlaveRequestMatrix {
-		return &averagespeed.AverageSpeed{}
-	},
-	interfaces.MatrixMaxSpeed: func() interfaces.SlaveRequestMatrix {
-		return &maxspeed.MaxSpeed{}
-	},
-	interfaces.MatrixPerSecondSpeed: func() interfaces.SlaveRequestMatrix {
-		return &persecondspeed.PerSecondSpeed{}
-	},
-	interfaces.MatrixInboundGeoIP: func() interfaces.SlaveRequestMatrix {
-		return &inboundgeoip.InboundGeoIP{}
-	},
-	interfaces.MatrixOutboundGeoIP: func() interfaces.SlaveRequestMatrix {
-		return &outboundgeoip.OutboundGeoIP{}
-	},
-	interfaces.MatrixScriptTest: func() interfaces.SlaveRequestMatrix {
-		return &scripttest.ScriptTest{}
-	},
-	interfaces.MatrixMAXRTTPing: func() interfaces.SlaveRequestMatrix {
-		return &maxrttping.MaxRttPing{}
-	},
-	interfaces.MatrixSDRTT:         func() interfaces.SlaveRequestMatrix { return &sdrtt.SDRTT{} },
-	interfaces.MatrixSDHTTP:        func() interfaces.SlaveRequestMatrix { return &sdhttp.SDHTTP{} },
-	interfaces.MatrixHTTPCode:      func() interfaces.SlaveRequestMatrix { return &httpstatuscode.HTTPStatusCode{} },
-	interfaces.MatrixTotalRTTPing:  func() interfaces.SlaveRequestMatrix { return &totalrttping.TotalRTT{} },
-	interfaces.MatrixTotalHTTPPing: func() interfaces.SlaveRequestMatrix { return &totalrttping.TotalHTTP{} },
-	interfaces.MatrixSleep:         func() interfaces.SlaveRequestMatrix { return &debug.SleepDS{} },
-	interfaces.MatrixPacketLoss:    func() interfaces.SlaveRequestMatrix { return &packetloss.PacketLoss{} },
+	interfaces.MatrixHTTPPing:             func() interfaces.SlaveRequestMatrix { return &httpping.HTTPPing{} },
+	interfaces.MatrixRTTPing:              func() interfaces.SlaveRequestMatrix { return &rttping.RTTPing{} },
+	interfaces.MatrixUDPType:              func() interfaces.SlaveRequestMatrix { return &udptype.UDPType{} },
+	interfaces.MatrixAverageSpeed:         func() interfaces.SlaveRequestMatrix { return &averagespeed.AverageSpeed{} },
+	interfaces.MatrixMaxSpeed:             func() interfaces.SlaveRequestMatrix { return &maxspeed.MaxSpeed{} },
+	interfaces.MatrixPerSecondSpeed:       func() interfaces.SlaveRequestMatrix { return &persecondspeed.PerSecondSpeed{} },
+	interfaces.MatrixInboundGeoIP:         func() interfaces.SlaveRequestMatrix { return &inboundgeoip.InboundGeoIP{} },
+	interfaces.MatrixOutboundGeoIP:        func() interfaces.SlaveRequestMatrix { return &outboundgeoip.OutboundGeoIP{} },
+	interfaces.MatrixScriptTest:           func() interfaces.SlaveRequestMatrix { return &scripttest.ScriptTest{} },
+	interfaces.MatrixMAXRTTPing:           func() interfaces.SlaveRequestMatrix { return &maxrttping.MaxRttPing{} },
+	interfaces.MatrixSDRTT:                func() interfaces.SlaveRequestMatrix { return &sdrtt.SDRTT{} },
+	interfaces.MatrixSDHTTP:               func() interfaces.SlaveRequestMatrix { return &sdhttp.SDHTTP{} },
+	interfaces.MatrixHTTPCode:             func() interfaces.SlaveRequestMatrix { return &httpstatuscode.HTTPStatusCode{} },
+	interfaces.MatrixTotalRTTPing:         func() interfaces.SlaveRequestMatrix { return &totalrttping.TotalRTT{} },
+	interfaces.MatrixTotalHTTPPing:        func() interfaces.SlaveRequestMatrix { return &totalrttping.TotalHTTP{} },
+	interfaces.MatrixSleep:                func() interfaces.SlaveRequestMatrix { return &debug.SleepDS{} },
+	interfaces.MatrixPacketLoss:           func() interfaces.SlaveRequestMatrix { return &packetloss.PacketLoss{} },
+	interfaces.MatrixPerSecondUploadSpeed: func() interfaces.SlaveRequestMatrix { return &persecondspeed.PerSecondUploadSpeed{} },
+	interfaces.MatrixAverageUploadSpeed:   func() interfaces.SlaveRequestMatrix { return &averagespeed.AverageUploadSpeed{} },
+	interfaces.MatrixMaxUploadSpeed:       func() interfaces.SlaveRequestMatrix { return &maxspeed.MaxUploadSpeed{} },
 }
 
 func Find(matrixType interfaces.SlaveRequestMatrixType) interfaces.SlaveRequestMatrix {

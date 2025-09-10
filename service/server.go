@@ -136,13 +136,8 @@ func InitServer() {
 						return
 					}
 					poll = SpeedTaskPoll
-					//awaitingCount := uint(poll.AwaitingCount())
-					//if awaitingCount > utils.GCFG.TaskLimit {
-					//	_ = conn.WriteJSON(&interfaces.SlaveResponse{
-					//		Error: fmt.Sprintf("too many tasks are waiting, please try later, current queuing=%d", awaitingCount),
-					//	})
-					//	return
-					//}
+				} else if structs.Contains(macros, interfaces.MacroUploadSpeed) && utils.GCFG.EnableUploadSpeedFlag == true {
+					poll = SpeedTaskPoll
 				} else {
 					poll = ConnTaskPoll
 				}
@@ -185,7 +180,7 @@ func InitServer() {
 				}).Init())
 
 				// onstart
-				if sr.Configs.ApiVersion == 2 {
+				if sr.Configs.ApiVersion == interfaces.ApiV2 {
 					_ = conn.WriteJSON(&interfaces.SlaveResponse{
 						ID:               item.ID(),
 						MiaoSpeedVersion: utils.VERSION,
