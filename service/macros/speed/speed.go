@@ -323,7 +323,7 @@ func SingleUploadThreadChunked(uploadURL string, proxy interfaces.Vendor, timeou
 			}
 		}()
 
-		chunkSize := 64 * 1024 // 64KB
+		chunkSize := 64 * 1024 * 2 // 256KB
 		pattern := []byte(strings.Repeat("0", chunkSize))
 
 		// 100 only for safety
@@ -393,7 +393,7 @@ func SingleUploadThreadChunked(uploadURL string, proxy interfaces.Vendor, timeou
 			wg.Wait()
 
 			if err != nil {
-				if !strings.Contains(err.Error(), "context deadline exceeded") || !strings.Contains(err.Error(), "EOF") {
+				if !strings.Contains(err.Error(), "context deadline exceeded") && !strings.Contains(err.Error(), "EOF") {
 					utils.DErrorf("Upload Chunked Task | Request error: %v", err)
 				}
 			} else {
