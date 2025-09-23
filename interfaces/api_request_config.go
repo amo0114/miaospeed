@@ -25,11 +25,17 @@ const (
 	ApiV0 = iota
 	ApiV1 = iota
 	ApiV2 = iota
+	ApiV3 = iota
 )
 
 type SlaveRequestConfigsV2 struct {
 	*SlaveRequestConfigsV1
-	ApiVersion      int    `yaml:"apiVersion,omitempty" cf:"name=🧬API版本，用于兼容Miaoko以及其他客户端"`
+	ApiVersion int `yaml:"apiVersion,omitempty" cf:"name=🧬API版本，用于兼容Miaoko以及其他客户端"`
+}
+
+type SlaveRequestConfigsV3 struct {
+	*SlaveRequestConfigsV2
+	//ApiVersion      int    `yaml:"apiVersion,omitempty" cf:"name=🧬API版本，用于兼容Miaoko以及其他客户端"`
 	UploadURL       string `yaml:"uploadURL,omitempty" cf:"name=📃 上行测速文件"`
 	UploadDuration  int64  `yaml:"uploadDuration,omitempty" cf:"name=⏱️ 上行测速时长 (单位: 秒)"`
 	UploadThreading uint   `yaml:"uploadThreading,omitempty" cf:"name=🧶 上行测速线程数"`
@@ -39,9 +45,6 @@ func (srcv2 *SlaveRequestConfigsV2) Clone() *SlaveRequestConfigsV2 {
 	return &SlaveRequestConfigsV2{
 		SlaveRequestConfigsV1: srcv2.SlaveRequestConfigsV1.Clone(),
 		ApiVersion:            srcv2.ApiVersion,
-		UploadURL:             srcv2.UploadURL,
-		UploadDuration:        srcv2.UploadDuration,
-		UploadThreading:       srcv2.UploadThreading,
 	}
 }
 
@@ -60,6 +63,40 @@ func (srcv2 *SlaveRequestConfigsV2) CloneToV1() *SlaveRequestConfigsV1 {
 
 		TaskTimeout: srcv2.TaskTimeout,
 		Scripts:     srcv2.Scripts,
+	}
+}
+
+func (srcv3 *SlaveRequestConfigsV3) Clone() *SlaveRequestConfigsV3 {
+	return &SlaveRequestConfigsV3{
+		SlaveRequestConfigsV2: srcv3.SlaveRequestConfigsV2.Clone(),
+		UploadURL:             srcv3.UploadURL,
+		UploadDuration:        srcv3.UploadDuration,
+		UploadThreading:       srcv3.UploadThreading,
+	}
+}
+
+func (srcv3 *SlaveRequestConfigsV3) CloneToV1() *SlaveRequestConfigsV1 {
+	return &SlaveRequestConfigsV1{
+		STUNURL:           srcv3.STUNURL,
+		DownloadURL:       srcv3.DownloadURL,
+		DownloadDuration:  srcv3.DownloadDuration,
+		DownloadThreading: srcv3.DownloadThreading,
+
+		PingAverageOver: srcv3.PingAverageOver,
+		PingAddress:     srcv3.PingAddress,
+
+		TaskRetry:  srcv3.TaskRetry,
+		DNSServers: cloneSlice(srcv3.DNSServers),
+
+		TaskTimeout: srcv3.TaskTimeout,
+		Scripts:     srcv3.Scripts,
+	}
+}
+
+func (srcv3 *SlaveRequestConfigsV3) CloneToV2() *SlaveRequestConfigsV2 {
+	return &SlaveRequestConfigsV2{
+		SlaveRequestConfigsV1: srcv3.CloneToV1(),
+		ApiVersion:            srcv3.ApiVersion,
 	}
 }
 

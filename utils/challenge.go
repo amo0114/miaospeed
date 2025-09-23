@@ -34,7 +34,7 @@ func hashMiaoSpeed(token, request string) string {
 //	return hex.EncodeToString(hasher.Sum(nil))
 //}
 
-func SignRequestOld(token string, req *interfaces.SlaveRequestV1) string {
+func SignRequestV1(token string, req *interfaces.SlaveRequestV1) string {
 	awaitSigned := req.Clone()
 	awaitSigned.Challenge = ""
 	if req.RandomSequence == "" {
@@ -46,14 +46,26 @@ func SignRequestOld(token string, req *interfaces.SlaveRequestV1) string {
 	awaitSignedStr = strings.TrimSpace(awaitSignedStr)          //去除多余空格
 	return hashMiaoSpeed(token, awaitSignedStr)
 }
+
+func SignRequestV2(token string, req *interfaces.SlaveRequestV2) string {
+	awaitSigned := req.Clone()
+	awaitSigned.Challenge = ""
+	awaitSignedStr, _ := jsoniter.MarshalToString(&awaitSigned) //序列化
+	awaitSignedStr = strings.TrimSpace(awaitSignedStr)          //去除多余空格
+	return hashMiaoSpeed(token, awaitSignedStr)
+}
 func SignRequest(token string, req *interfaces.SlaveRequest) string {
 	if req.Configs.ApiVersion == interfaces.ApiV0 || req.Configs.ApiVersion == interfaces.ApiV1 {
-		return SignRequestOld(token, req.CloneToV1())
-	} else {
+		return SignRequestV1(token, req.CloneToV1())
+	} else if req.Configs.ApiVersion == interfaces.ApiV2 {
+		return SignRequestV2(token, req.CloneToV2())
+	} else if req.Configs.ApiVersion == interfaces.ApiV3 {
 		awaitSigned := req.Clone()
 		awaitSigned.Challenge = ""
 		awaitSignedStr, _ := jsoniter.MarshalToString(&awaitSigned)
 		awaitSignedStr = strings.TrimSpace(awaitSignedStr)
 		return hashMiaoSpeed(token, awaitSignedStr)
+	} else {
+		return RandomUUID() // 不应该执行到此分支
 	}
 }

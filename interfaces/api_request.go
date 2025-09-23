@@ -73,7 +73,7 @@ func (sr *SlaveRequestV1) Clone() *SlaveRequestV1 {
 type SlaveRequest struct {
 	Basics  SlaveRequestBasics
 	Options SlaveRequestOptions
-	Configs SlaveRequestConfigsV2
+	Configs SlaveRequestConfigsV3
 
 	Vendor VendorType
 	Nodes  []SlaveRequestNode
@@ -98,6 +98,39 @@ func (sr *SlaveRequest) CloneToV1() *SlaveRequestV1 {
 		Basics:         *sr.Basics.Clone(),
 		Options:        *sr.Options.Clone(),
 		Configs:        *sr.Configs.CloneToV1(),
+		Nodes:          cloneSlice(sr.Nodes),
+		RandomSequence: sr.RandomSequence,
+		Challenge:      sr.Challenge,
+	}
+}
+
+type SlaveRequestV2 struct {
+	Basics  SlaveRequestBasics
+	Options SlaveRequestOptions
+	Configs SlaveRequestConfigsV2
+
+	Vendor VendorType
+	Nodes  []SlaveRequestNode
+
+	RandomSequence string
+	Challenge      string
+}
+
+func (sr *SlaveRequestV2) Clone() *SlaveRequestV2 {
+	return &SlaveRequestV2{
+		Basics:         *sr.Basics.Clone(),
+		Options:        *sr.Options.Clone(),
+		Configs:        *sr.Configs.Clone(),
+		Nodes:          cloneSlice(sr.Nodes),
+		RandomSequence: sr.RandomSequence,
+		Challenge:      sr.Challenge,
+	}
+}
+func (sr *SlaveRequest) CloneToV2() *SlaveRequestV2 {
+	return &SlaveRequestV2{
+		Basics:         *sr.Basics.Clone(),
+		Options:        *sr.Options.Clone(),
+		Configs:        *sr.Configs.CloneToV2(),
 		Nodes:          cloneSlice(sr.Nodes),
 		RandomSequence: sr.RandomSequence,
 		Challenge:      sr.Challenge,

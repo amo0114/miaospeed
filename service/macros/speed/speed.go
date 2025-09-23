@@ -21,7 +21,7 @@ import (
 var uploadDataCache = make(map[int64][]byte)
 var uploadDataMutex sync.RWMutex
 
-func Once(speed *Speed, proxy interfaces.Vendor, cfg *interfaces.SlaveRequestConfigsV2) {
+func Once(speed *Speed, proxy interfaces.Vendor, cfg *interfaces.SlaveRequestConfigsV3) {
 	speed.Speeds = make([]uint64, cfg.DownloadDuration)
 
 	downloadFiles := RefetchDownloadFiles(proxy, cfg.DownloadURL)
@@ -253,9 +253,9 @@ func RefetchUploadURL(proxy interfaces.Vendor, uploadURL string) string {
 }
 
 // UploadOnceChunked 使用 Transfer-Encoding: chunked 的上传测速
-func UploadOnceChunked(speed *UploadSpeed, proxy interfaces.Vendor, cfg *interfaces.SlaveRequestConfigsV2) {
+func UploadOnceChunked(speed *UploadSpeed, proxy interfaces.Vendor, cfg *interfaces.SlaveRequestConfigsV3) {
 	speed.Speeds = make([]uint64, cfg.UploadDuration)
-	if utils.GCFG.EnableUploadSpeedFlag == false {
+	if utils.GCFG.EnableUploadSpeedFlag == false || cfg.ApiVersion < interfaces.ApiV3 {
 		return
 	}
 	uploadURL := RefetchUploadURL(proxy, cfg.UploadURL)
@@ -393,7 +393,7 @@ func SingleUploadThreadChunked(uploadURL string, proxy interfaces.Vendor, timeou
 			wg.Wait()
 
 			if err != nil {
-				if !strings.Contains(err.Error(), "context deadline exceeded") {
+				if !strings.Contains(err.Error(), "context deadline exceeded") || !strings.Contains(err.Error(), "EOF") {
 					utils.DErrorf("Upload Chunked Task | Request error: %v", err)
 				}
 			} else {
