@@ -1,4 +1,4 @@
-miaospeed v4.6.0
+miaospeed v4.6.1
 
 1. 🎉首次迎来了对上行速度测试的支持，
 2. 上行速度测试对应的 MacroType 为: uspeed ，对应的 MatrixType有：
