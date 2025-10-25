@@ -1,6 +1,8 @@
 package main
 
 import (
+	"encoding/base64"
+	"encoding/json"
 	"flag"
 	"fmt"
 	"os"
@@ -30,6 +32,8 @@ func InitConfigServer() *utils.GlobalConfig {
 	whiteList := sflag.String("whitelist", "", "bot id whitelist, can be format like 1111,2222,3333")
 	pubKeyStr := sflag.String("serverpublickey", "", "specific the sever public key (PEM format)")
 	privKeyStr := sflag.String("serverprivatekey", "", "specific the sever private key (PEM format)")
+	demoMode := sflag.Bool("demo", false, "run server in demo mode with default configs")
+
 	parseFlag(sflag)
 
 	gcfg.WhiteList = make([]string, 0)
@@ -51,6 +55,31 @@ func InitConfigServer() *utils.GlobalConfig {
 		// deprecated
 		gcfg.Path = "/"
 	}
+
+	// 处理 demo 模式
+	if *demoMode {
+		if gcfg.Binder == "" {
+			gcfg.Binder = "127.0.0.1:8765"
+		}
+		if gcfg.Token == "" {
+			gcfg.Token = utils.RandomUUID()
+		}
+		gcfg.MiaoKoSignedTLS = true
+		gcfg.EnableIPv6 = true
+		if *path == "" {
+			randomPath := "/" + utils.RandomUUID()
+			gcfg.Path = randomPath
+		}
+
+		// 将配置信息编码为 base64 JSON 字符串并输出
+		configBytes, _ := json.Marshal(gcfg)
+		configBase64 := base64.StdEncoding.EncodeToString(configBytes)
+		configBase64 = "miaospeed://" + configBase64
+		fmt.Println("===============================\tCopy it to your client\t================================")
+		fmt.Println(configBase64)
+		fmt.Println("===============================\tEnd of line\t================================")
+	}
+
 	if gcfg.Path == "/" {
 		utils.DWarnf("MiaoSpeed Server | Using an unsafe websocket path: %s", gcfg.Path)
 	} else {
