@@ -26,6 +26,7 @@ const (
 	MatrixSDHTTP        SlaveRequestMatrixType = "TEST_PING_SD_CONN"
 	MatrixHTTPCode      SlaveRequestMatrixType = "TEST_HTTP_CODE"
 	MatrixPacketLoss    SlaveRequestMatrixType = "TEST_PING_PACKET_LOSS"
+	MatrixHijack        SlaveRequestMatrixType = "TEST_HIJACK_DETECTION"
 	MatrixSleep         SlaveRequestMatrixType = "DEBUG_SLEEP"
 	MatrixInvalid       SlaveRequestMatrixType = "INVALID"
 )
@@ -43,7 +44,8 @@ func (srmt *SlaveRequestMatrixType) Valid() bool {
 		MatrixScriptTest, MatrixHTTPPing, MatrixRTTPing,
 		MatrixMAXHTTPPing, MatrixMAXRTTPing,
 		MatrixTotalHTTPPing, MatrixTotalRTTPing,
-		MatrixSDRTT, MatrixSDHTTP, MatrixHTTPCode, MatrixPacketLoss:
+		MatrixSDRTT, MatrixSDHTTP, MatrixHTTPCode, MatrixPacketLoss,
+		MatrixHijack:
 		return true
 	}
 

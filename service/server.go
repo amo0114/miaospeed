@@ -122,7 +122,7 @@ func InitServer() {
 				}
 
 				// find all matrices
-				mtrx := matrices.FindBatchFromEntry(sr.Options.Matrices)
+				mtrx, extra := matrices.FindBatchFromEntry(sr.Options.Matrices, sr.Configs.Scripts)
 
 				// extra macro from the matrices
 				macros := ExtractMacrosFromMatrices(mtrx)
@@ -146,11 +146,12 @@ func InitServer() {
 
 				// build testing item
 				item := poll.Push((&TestingPollItem{
-					id:       utils.RandomUUID(),
-					name:     sr.Basics.ID,
-					request:  &sr,
-					matrices: sr.Options.Matrices,
-					macros:   macros,
+					id:            utils.RandomUUID(),
+					name:          sr.Basics.ID,
+					request:       &sr,
+					matrices:      sr.Options.Matrices,
+					matricesExtra: extra,
+					macros:        macros,
 					onProcess: func(self *TestingPollItem, idx int, result interfaces.SlaveEntrySlot) {
 						_ = conn.WriteJSON(&interfaces.SlaveResponse{
 							ID:               self.ID(),

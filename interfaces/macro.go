@@ -10,6 +10,7 @@ const (
 	MacroScript      SlaveRequestMacroType = "SCRIPT"
 	MacroGeo         SlaveRequestMacroType = "GEO"
 	MacroSleep       SlaveRequestMacroType = "SLEEP"
+	MacroHijack      SlaveRequestMacroType = "HIJACK"
 	MacroInvalid     SlaveRequestMacroType = "INVALID"
 )
 

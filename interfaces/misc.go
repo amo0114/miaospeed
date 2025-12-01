@@ -33,4 +33,5 @@ type RequestOptions struct {
 	NoRedir bool
 	Network RequestOptionsNetwork
 	Reader  io.Reader
+	SNI     string
 }
