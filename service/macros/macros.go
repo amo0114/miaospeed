@@ -2,6 +2,7 @@ package macros
 
 import (
 	"github.com/airportr/miaospeed/interfaces"
+	"github.com/airportr/miaospeed/service/macros/hijack"
 	"github.com/airportr/miaospeed/utils/structs"
 
 	"github.com/airportr/miaospeed/service/macros/geo"
@@ -29,6 +30,7 @@ var registeredList = map[interfaces.SlaveRequestMacroType]func() interfaces.Slav
 	interfaces.MacroScript:      func() interfaces.SlaveRequestMacro { return &script.Script{} },
 	interfaces.MacroSleep:       func() interfaces.SlaveRequestMacro { return &sleep.Sleep{} },
 	interfaces.MacroUploadSpeed: func() interfaces.SlaveRequestMacro { return &speed.UploadSpeed{} },
+	interfaces.MacroHijack:      func() interfaces.SlaveRequestMacro { return &hijack.Hijack{} },
 }
 
 func Find(macroType interfaces.SlaveRequestMacroType) interfaces.SlaveRequestMacro {
