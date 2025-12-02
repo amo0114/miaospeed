@@ -104,7 +104,11 @@ func (tpi *TestingPollItem) Yield(idx int, tpc *taskpoll.TPController) {
 				}
 				m.Extract(entry, macro)
 
-				scriptResult := formatExtraMatriceScriptResult(entry.Params, m)
+				scriptResult := interfaces.ScriptResult{}
+				if script := structs.Find(tpi.request.Configs.Scripts, func(s interfaces.Script) bool { return s.ID == me.Params }); script != nil {
+					scriptResult = formatExtraMatriceScriptResult(script.Content, m)
+				}
+
 				return interfaces.MatrixResponse{
 					Type:    interfaces.MatrixScriptTest,
 					Payload: utils.ToJSON(&interfaces.ScriptTestDS{Key: me.Params, ScriptResult: scriptResult}),

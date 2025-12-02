@@ -1,4 +1,4 @@
-package matrices
+package hijack
 
 import (
 	"github.com/airportr/miaospeed/interfaces"

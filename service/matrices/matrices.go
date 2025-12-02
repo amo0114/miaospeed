@@ -2,6 +2,7 @@ package matrices
 
 import (
 	"github.com/airportr/miaospeed/interfaces"
+	"github.com/airportr/miaospeed/service/matrices/hijack"
 	"github.com/airportr/miaospeed/service/matrices/httpstatuscode"
 	"github.com/airportr/miaospeed/service/matrices/totalrttping"
 	"github.com/airportr/miaospeed/utils/structs"
@@ -44,6 +45,7 @@ var registeredList = map[interfaces.SlaveRequestMatrixType]func() interfaces.Sla
 	interfaces.MatrixPerSecondUploadSpeed: func() interfaces.SlaveRequestMatrix { return &persecondspeed.PerSecondUploadSpeed{} },
 	interfaces.MatrixAverageUploadSpeed:   func() interfaces.SlaveRequestMatrix { return &averagespeed.AverageUploadSpeed{} },
 	interfaces.MatrixMaxUploadSpeed:       func() interfaces.SlaveRequestMatrix { return &maxspeed.MaxUploadSpeed{} },
+	interfaces.MatrixHijack:               func() interfaces.SlaveRequestMatrix { return &hijack.Hijack{} },
 }
 
 func Find(matrixType interfaces.SlaveRequestMatrixType) interfaces.SlaveRequestMatrix {
