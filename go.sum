@@ -105,10 +105,10 @@ github.com/metacubex/gvisor v0.0.0-20250919004547-6122b699a301 h1:N5GExQJqYAH3gO
 github.com/metacubex/gvisor v0.0.0-20250919004547-6122b699a301/go.mod h1:8LpS0IJW1VmWzUm3ylb0e2SK5QDm5lO/2qwWLZgRpBU=
 github.com/metacubex/kcp-go v0.0.0-20251111012849-7455698490e9 h1:7m3tRPrLpKOLOvZ/Lp4XCxz0t7rg9t9K35x6TahjR8o=
 github.com/metacubex/kcp-go v0.0.0-20251111012849-7455698490e9/go.mod h1:HIJZW4QMhbBqXuqC1ly6Hn0TEYT2SzRw58ns1yGhXTs=
-github.com/metacubex/mihomo v1.19.17 h1:L0Ibe5iuMd/FAfNuYAM2FmsJkclv4DoZLckZjAN4lPw=
-github.com/metacubex/mihomo v1.19.17/go.mod h1:RtvmS+1DMOIbfL8t2ZMsd5ymeTChOmrAGlgRnKQg6P0=
-github.com/metacubex/quic-go v0.55.1-0.20251024060151-bd465f127128 h1:I1uvJl206/HbkzEAZpLgGkZgUveOZb+P+6oTUj7dN+o=
-github.com/metacubex/quic-go v0.55.1-0.20251024060151-bd465f127128/go.mod h1:1lktQFtCD17FZliVypbrDHwbsFSsmz2xz2TRXydvB5c=
+github.com/metacubex/mihomo v1.19.18-0.20251211061421-2a1b3b2aedb2 h1:j70Mx/TLt1qSGCoN4YU24Y+G4BoICETJKbwW5ka/PGs=
+github.com/metacubex/mihomo v1.19.18-0.20251211061421-2a1b3b2aedb2/go.mod h1:bsB26086A0RvpYONsd4At5ZwTmHFgHtLoxYfzPMWvC0=
+github.com/metacubex/quic-go v0.55.1-0.20251203073212-6940cac967c2 h1:21KrRBqF5en0yXwwb5Vpptbeiiu3p7gD0G+RqNYvsvw=
+github.com/metacubex/quic-go v0.55.1-0.20251203073212-6940cac967c2/go.mod h1:1lktQFtCD17FZliVypbrDHwbsFSsmz2xz2TRXydvB5c=
 github.com/metacubex/randv2 v0.2.0 h1:uP38uBvV2SxYfLj53kuvAjbND4RUDfFJjwr4UigMiLs=
 github.com/metacubex/randv2 v0.2.0/go.mod h1:kFi2SzrQ5WuneuoLLCMkABtiBu6VRrMrWFqSPyj2cxY=
 github.com/metacubex/restls-client-go v0.1.7 h1:eCwiXCTQb5WJu9IlgYvDBA1OgrINv58dEe7hcN5H15k=
@@ -177,8 +177,8 @@ github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZb
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/quic-go/qpack v0.4.0 h1:Cr9BXA1sQS2SmDUWjSofMPNKmvF6IiIfDRmgU0w1ZCo=
 github.com/quic-go/qpack v0.4.0/go.mod h1:UZVnYIfi5GRk+zI9UMaCPsmZ2xKJP7XBUvVyT1Knj9A=
-github.com/saba-futai/sudoku v0.0.1-g h1:4q6OuAA6COaRW+CgoQtdim5AUPzzm0uOkvbYpJnOaBE=
-github.com/saba-futai/sudoku v0.0.1-g/go.mod h1:2ZRzRwz93cS2K/o2yOG4CPJEltcvk5y6vbvUmjftGU0=
+github.com/saba-futai/sudoku v0.0.2-c h1:0CaoCKx4Br8UL97fnIxn8Y7rnQpflBza7kfaIrdg2rI=
+github.com/saba-futai/sudoku v0.0.2-c/go.mod h1:Rvggsoprp7HQM7bMIZUd1M27bPj8THRsZdY1dGbIAvo=
 github.com/samber/lo v1.52.0 h1:Rvi+3BFHES3A8meP33VPAxiBZX/Aws5RxrschYGjomw=
 github.com/samber/lo v1.52.0/go.mod h1:4+MXEGsJzbKGaUEQFKBq2xtfuznW9oz/WrgyzMzRoM0=
 github.com/sina-ghaderi/poly1305 v0.0.0-20220724002748-c5926b03988b h1:rXHg9GrUEtWZhEkrykicdND3VPjlVbYiLdX9J7gimS8=
