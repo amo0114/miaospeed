@@ -54,8 +54,8 @@ func (c *Clash) DialTCP(ctx context.Context, url string, network interfaces.Requ
 		return nil, fmt.Errorf("should call Build() before run")
 	}
 	setupIPv6()
-	timeoutCtx, cancel := context.WithTimeout(ctx, 10*time.Second)
-	defer cancel()
+	//timeoutCtx, cancel := context.WithTimeout(ctx, 10*time.Second)
+	//defer cancel()
 	type result struct {
 		conn net.Conn
 		err  error
@@ -66,7 +66,7 @@ func (c *Clash) DialTCP(ctx context.Context, url string, network interfaces.Requ
 		if err != nil {
 			ch <- result{nil, fmt.Errorf("cannot build tcp context: %v", err)}
 		}
-		conn, err := c.proxy.DialContext(timeoutCtx, &addr)
+		conn, err := c.proxy.DialContext(ctx, &addr)
 		if err != nil && !strings.Contains(err.Error(), "timeout") && !strings.Contains(err.Error(), "no such host") {
 			utils.DLogf("cannot dialTCP: %s | proxy=%s | vendor=Clash | err=%s", url, c.proxy.Name(), err.Error())
 		}
@@ -75,8 +75,8 @@ func (c *Clash) DialTCP(ctx context.Context, url string, network interfaces.Requ
 	select {
 	case res := <-ch:
 		return res.conn, res.err
-	case <-timeoutCtx.Done():
-		return nil, fmt.Errorf("dialTCP timeout after 10 seconds: %w", timeoutCtx.Err())
+	case <-ctx.Done():
+		return nil, fmt.Errorf("dialTCP timeout: %w", ctx.Err())
 	}
 }
 
