@@ -39,9 +39,9 @@ function matrix_extract(macroResult) {
 
     // 提取 speedIP 和 realIP（防止 null / undefined）
     var speedIP = macroResult.SpeedIP;
-    print("speedIP: " + speedIP);
+    // print("speedIP: " + speedIP);
     var realIP = macroResult.RealIP;
-    print("realIP: " + realIP);
+    // print("realIP: " + realIP);
     // 若任意为空 → 检测失败
     if (!speedIP || !realIP || speedIP === undefined || realIP === undefined || speedIP === null || realIP === null) {
         return {

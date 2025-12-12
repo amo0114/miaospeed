@@ -14,6 +14,7 @@ func FetchFactory(vm *goja.Runtime, p interfaces.Vendor, network interfaces.Requ
 
 		method := "GET"
 		body := ""
+		SNI := ""
 		useHost := false
 		noRedir := false
 		retry := 0
@@ -24,6 +25,9 @@ func FetchFactory(vm *goja.Runtime, p interfaces.Vendor, network interfaces.Requ
 		if params != nil {
 			if v, ok := helpers.VMSafeStr(params.Get("method")); ok {
 				method = v
+			}
+			if v, ok := helpers.VMSafeStr(params.Get("sni")); ok {
+				SNI = v
 			}
 			if v, ok := helpers.VMSafeStr(params.Get("body")); ok {
 				body = v
@@ -67,6 +71,7 @@ func FetchFactory(vm *goja.Runtime, p interfaces.Vendor, network interfaces.Requ
 			Body:    []byte(body),
 			NoRedir: noRedir,
 			Network: network,
+			SNI:     SNI,
 		})
 
 		var retMap map[string]interface{} = nil

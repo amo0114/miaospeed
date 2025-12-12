@@ -1,9 +1,10 @@
 package hijack
 
 import (
+	"regexp"
+
 	"github.com/airportr/miaospeed/interfaces"
 	"github.com/airportr/miaospeed/vendors"
-	"regexp"
 )
 
 const CheckUrlGoogle = "https://ipv4.google.com/sorry/index"
@@ -31,7 +32,7 @@ func extractIPAddress(body []byte) string {
 
 	if len(matches) > 1 {
 		return matches[1]
-	} else {
-		return ""
 	}
+
+	return ""
 }
