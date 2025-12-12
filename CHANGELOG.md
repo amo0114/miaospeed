@@ -5,6 +5,7 @@ miaospeed v4.6.3
 3. 为Miaoko客户端提供不支持的macro兼容层
 4. 新的macro：hijack 用来检测流量是否被“劫持”，这里的劫持指的是测速链接请求的IP地址与实际普通网页请求的IP地址不一致产生的“分流行为”。（感谢 https://github.com/SpeedCentre/hijack-test 提供的测试代码）
 5. 具体劫持说明可查看此链接：https://telegra.ph/劫持检测的背后我们是如何做到的-11-27
+6. 为 fetch 函数添加新的参数：sni ，用来指定SNI，默认为空
 
 | MatrixType        | 描述     | Macro  |
 |-------------------|--------|--------|
