@@ -8,6 +8,7 @@ import (
 type GlobalConfig struct {
 	Token                 string
 	Binder                string
+	NetworkInterface      string
 	WhiteList             []string
 	AllowIPs              []string
 	SpeedLimit            uint64
