@@ -2,6 +2,7 @@ package matrices
 
 import (
 	"github.com/airportr/miaospeed/interfaces"
+	"github.com/airportr/miaospeed/service/matrices/hijack"
 	"github.com/airportr/miaospeed/service/matrices/httpstatuscode"
 	"github.com/airportr/miaospeed/service/matrices/totalrttping"
 	"github.com/airportr/miaospeed/utils/structs"
@@ -44,6 +45,7 @@ var registeredList = map[interfaces.SlaveRequestMatrixType]func() interfaces.Sla
 	interfaces.MatrixPerSecondUploadSpeed: func() interfaces.SlaveRequestMatrix { return &persecondspeed.PerSecondUploadSpeed{} },
 	interfaces.MatrixAverageUploadSpeed:   func() interfaces.SlaveRequestMatrix { return &averagespeed.AverageUploadSpeed{} },
 	interfaces.MatrixMaxUploadSpeed:       func() interfaces.SlaveRequestMatrix { return &maxspeed.MaxUploadSpeed{} },
+	interfaces.MatrixHijack:               func() interfaces.SlaveRequestMatrix { return &hijack.Hijack{} },
 }
 
 func Find(matrixType interfaces.SlaveRequestMatrixType) interfaces.SlaveRequestMatrix {
@@ -60,8 +62,24 @@ func FindBatch(macroTypes []interfaces.SlaveRequestMatrixType) []interfaces.Slav
 	})
 }
 
-func FindBatchFromEntry(macroTypes []interfaces.SlaveRequestMatrixEntry) []interfaces.SlaveRequestMatrix {
-	return structs.Map(macroTypes, func(m interfaces.SlaveRequestMatrixEntry) interfaces.SlaveRequestMatrix {
+func FindBatchFromEntry(macroTypes []interfaces.SlaveRequestMatrixEntry, scripts []interfaces.Script) ([]interfaces.SlaveRequestMatrix, map[string]interfaces.SlaveRequestMatrixEntry) {
+	extras := make(map[string]interfaces.SlaveRequestMatrixEntry)
+
+	matrices := structs.Map(macroTypes, func(m interfaces.SlaveRequestMatrixEntry) interfaces.SlaveRequestMatrix {
+		if m.Type == interfaces.MatrixScriptTest {
+			if script := structs.Find(scripts, func(s interfaces.Script) bool { return s.ID == m.Params }); script != nil {
+				entry, ok := ExecExtraMatriceExtract(script.Content)
+				if ok {
+					extras[m.Params] = entry
+					return Find(entry.Type)
+				}
+				return Find(m.Type)
+			}
+			return &invalid.Invalid{}
+		}
+
 		return Find(m.Type)
 	})
+
+	return matrices, extras
 }

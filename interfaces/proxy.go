@@ -23,13 +23,15 @@ const (
 	SSH       ProxyType = "SSH"
 	Mieru     ProxyType = "Mieru"
 	AnyTLS    ProxyType = "AnyTLS"
+	Sudoku    ProxyType = "Sudoku"
+	Masque    ProxyType = "Masque"
 
 	ProxyInvalid ProxyType = "Invalid"
 )
 
 var AllProxyTypes = []ProxyType{
 	Shadowsocks, ShadowsocksR, Snell, Socks5, Http, Vmess, Trojan,
-	Vless, Hysteria, Hysteria2, TUIC, Wireguard, SSH, Mieru, AnyTLS,
+	Vless, Hysteria, Hysteria2, TUIC, Wireguard, SSH, Mieru, AnyTLS, Sudoku, Masque,
 }
 
 func (pt *ProxyType) Equal(other ProxyType) bool {

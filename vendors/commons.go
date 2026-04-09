@@ -3,6 +3,7 @@ package vendors
 import (
 	"bytes"
 	"context"
+	"crypto/tls"
 	"errors"
 	"fmt"
 	"io"
@@ -12,6 +13,7 @@ import (
 	"time"
 
 	"github.com/airportr/miaospeed/interfaces"
+	"github.com/airportr/miaospeed/utils"
 	"github.com/airportr/miaospeed/utils/structs"
 )
 
@@ -53,6 +55,12 @@ func RequestUnsafe(ctx context.Context, p interfaces.Vendor, reqOpt *interfaces.
 	}
 	req = req.WithContext(ctx)
 
+	tlsConf := tls.Config{}
+
+	if reqOpt.SNI != "" {
+		tlsConf.ServerName = reqOpt.SNI
+	}
+
 	// connect proxy bridge
 	// init params copied from http.DefaultTransport
 	transport := &http.Transport{
@@ -60,15 +68,19 @@ func RequestUnsafe(ctx context.Context, p interfaces.Vendor, reqOpt *interfaces.
 		IdleConnTimeout:       10 * time.Second,
 		TLSHandshakeTimeout:   5 * time.Second,
 		ExpectContinueTimeout: 1 * time.Second,
+		TLSClientConfig:       &tlsConf,
 	}
 
 	if p != nil {
 		transport.Dial = func(string, string) (net.Conn, error) {
+			if reqOpt.SNI != "" {
+				return p.DialTCP(ctx, "https://"+reqOpt.SNI, reqOpt.Network)
+			}
 			return p.DialTCP(ctx, reqOpt.URL, reqOpt.Network)
 		}
 	} else {
 		transport.Dial = func(string, string) (net.Conn, error) {
-			return net.Dial(reqOpt.Network.String(), reqOpt.URL)
+			return utils.Dial(reqOpt.Network.String(), reqOpt.URL)
 		}
 	}
 
@@ -138,7 +150,7 @@ func NetCat(ctx context.Context, p interfaces.Vendor, addr string, data []byte, 
 			conn, err = p.DialTCP(ctx, addr, network)
 		}
 	} else {
-		conn, err = net.Dial(network.String(), addr)
+		conn, err = utils.DialContext(ctx, network.String(), addr)
 	}
 
 	if err != nil {

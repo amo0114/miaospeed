@@ -3,6 +3,7 @@ package local
 import (
 	"context"
 	"fmt"
+	"github.com/airportr/miaospeed/utils"
 	"github.com/metacubex/mihomo/constant"
 	"net"
 
@@ -32,11 +33,11 @@ func (c *Local) Build(proxyName string, proxyInfo string) interfaces.Vendor {
 	return c
 }
 
-func (c *Local) DialTCP(_ context.Context, url string, network interfaces.RequestOptionsNetwork) (net.Conn, error) {
+func (c *Local) DialTCP(ctx context.Context, url string, network interfaces.RequestOptionsNetwork) (net.Conn, error) {
 	if hostname, port, err := urlToMetadata(url); err != nil {
 		return nil, err
 	} else {
-		return net.Dial(network.String(), fmt.Sprintf("%s:%d", hostname, port))
+		return utils.DialContext(ctx, network.String(), fmt.Sprintf("%s:%d", hostname, port))
 	}
 }
 

@@ -7,6 +7,7 @@ import (
 	"path"
 
 	"github.com/airportr/miaospeed/utils"
+	mihomoDialer "github.com/metacubex/mihomo/component/dialer"
 )
 
 var cmdName = "miaospeed"
@@ -69,10 +70,22 @@ func RunCliDefault() {
 
 func parseFlag(sflag *flag.FlagSet) {
 	verboseMode := sflag.Bool("verbose", false, "whether to print out systems log")
+	sflag.StringVar(&utils.GCFG.NetworkInterface, "interface", "", "specify outbound network interface name")
+	sflag.StringVar(&utils.GCFG.NetworkInterface, "i", "", "alias of -interface")
 
 	sflag.Parse(os.Args[2:])
 
 	if *verboseMode {
 		utils.VerboseLevel = utils.LTLog
+	}
+
+	if err := utils.ValidateNetworkInterface(utils.GCFG.NetworkInterface); err != nil {
+		utils.DErrorf("MiaoSpeed CLI | %s", err.Error())
+		os.Exit(1)
+	} else if utils.GCFG.NetworkInterface != "" {
+		mihomoDialer.DefaultInterface.Store(utils.GCFG.NetworkInterface)
+		utils.DWarnf("MiaoSpeed CLI | Outbound interface set to: %s", utils.GCFG.NetworkInterface)
+	} else {
+		mihomoDialer.DefaultInterface.Store("")
 	}
 }
