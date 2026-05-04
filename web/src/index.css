@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-info: var(--info);
+  
+  --radius-xl: var(--radius);
+  --radius-lg: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 8px);
+  --radius-sm: calc(var(--radius) - 10px);
+  --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+}
+
+@layer base {
+  :root {
+    /* Light Mode - Apple-inspired */
+    --background: #F5F5F7;
+    --foreground: #1D1D1F;
+    --card: #FFFFFF;
+    --card-foreground: #1D1D1F;
+    --popover: #FFFFFF;
+    --popover-foreground: #1D1D1F;
+    
+    --primary: #000000;
+    --primary-foreground: #FFFFFF;
+    
+    --secondary: #F5F5F7;
+    --secondary-foreground: #1D1D1F;
+    
+    --muted: #F5F5F7;
+    --muted-foreground: #86868B;
+    
+    --accent: #F5F5F7;
+    --accent-foreground: #1D1D1F;
+    
+    --destructive: #FF3B30;
+    --destructive-foreground: #FFFFFF;
+    
+    --border: #E5E5EA;
+    --input: #E5E5EA;
+    --ring: #000000;
+    
+    --success: #34C759;
+    --warning: #FF9500;
+    --info: #007AFF;
+    
+    --radius: 1.25rem; /* 20px squircle base */
+  }
+  
+  .dark {
+    /* Dark Mode - Apple-inspired */
+    --background: #000000;
+    --foreground: #F5F5F7;
+    --card: #1C1C1E;
+    --card-foreground: #F5F5F7;
+    --popover: #1C1C1E;
+    --popover-foreground: #F5F5F7;
+    
+    --primary: #FFFFFF;
+    --primary-foreground: #000000;
+    
+    --secondary: #2C2C2E;
+    --secondary-foreground: #F5F5F7;
+    
+    --muted: #1C1C1E;
+    --muted-foreground: #98989D;
+    
+    --accent: #2C2C2E;
+    --accent-foreground: #F5F5F7;
+    
+    --destructive: #FF453A;
+    --destructive-foreground: #FFFFFF;
+    
+    --border: #38383A;
+    --input: #38383A;
+    --ring: #FFFFFF;
+    
+    --success: #32D74B;
+    --warning: #FF9F0A;
+    --info: #0A84FF;
+  }
+  
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+}

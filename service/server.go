@@ -39,6 +39,9 @@ func (wh *WsHandler) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
 var upgrader = websocket.Upgrader{
 	ReadBufferSize:  1024,
 	WriteBufferSize: 1024,
+	CheckOrigin: func(r *http.Request) bool {
+		return true // 允许所有 Origin，开发环境使用
+	},
 }
 
 func InitServer() {

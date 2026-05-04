@@ -1,0 +1,91 @@
+{
+  "header": {
+    "title": "MiaoSpeed",
+    "disconnected": "已断开",
+    "connecting": "连接中...",
+    "connected": "已连接",
+    "error": "连接错误",
+    "connect": "连接",
+    "disconnect": "断开连接",
+    "retry": "重试",
+    "toggleTheme": "切换主题",
+    "toggleLang": "English"
+  },
+  "app": {
+    "error_prefix": "错误：",
+    "footer": "MiaoSpeed WebUI"
+  },
+  "importer": {
+    "title": "导入节点",
+    "description": "粘贴 Clash YAML 配置、订阅链接内容或代理 URI",
+    "placeholder": "在此粘贴配置...\n\n支持的格式：\n- Clash YAML (包含 proxies: 部分)\n- Base64 订阅\n- vmess:// / trojan:// / ss:// URI",
+    "file": "文件",
+    "error_empty": "请粘贴代理配置",
+    "error_invalid": "未找到有效的代理节点。请检查配置格式。",
+    "parse": "解析节点",
+    "clear": "清除",
+    "imported": "已导入 {{count}} 个节点",
+    "imported_plural": "已导入 {{count}} 个节点"
+  },
+  "test_panel": {
+    "title": "测试配置",
+    "description": "选择测试类型并开始测试代理节点",
+    "ping_only": "仅延迟",
+    "ping_desc": "连通性、HTTP延迟、丢包率、地理位置",
+    "speed_test": "速度测试",
+    "speed_desc": "下载/上传速度、连通性、地理位置",
+    "full_test": "完整测试",
+    "full_desc": "包含速度和延迟的所有指标",
+    "included_tests": "包含的测试：",
+    "nodes_to_test": "待测节点数：",
+    "testing": "测试中...",
+    "start_test": "开始测试 ({{count}} 个节点)",
+    "connected": "已连接到 MiaoSpeed 后端",
+    "disconnected": "未连接"
+  },
+  "results_table": {
+    "title": "测试结果",
+    "description_empty": "暂无结果。请导入节点并开始测试。",
+    "description_loading": "等待测试结果...",
+    "testing": "测试进行中...",
+    "description_tested": "已测试 {{count}} 个节点",
+    "description_tested_plural": "已测试 {{count}} 个节点",
+    "copy": "复制",
+    "csv": "导出 CSV",
+    "col_node": "节点",
+    "col_type": "类型",
+    "col_rtt": "延迟",
+    "col_download": "下载",
+    "col_upload": "上传",
+    "col_loss": "丢包",
+    "col_geoip": "地理位置",
+    "col_time": "耗时"
+  },
+  "settings": {
+    "title": "设置",
+    "description": "配置 MiaoSpeed 后端连接",
+    "server_url": "服务器地址",
+    "server_url_desc": "MiaoSpeed 后端的 WebSocket 地址",
+    "ws_path": "WebSocket 路径",
+    "ws_path_desc": "必须与服务器上的 -path 参数一致",
+    "startup_token": "启动 Token",
+    "startup_token_desc": "必须与服务器上的 -token 参数一致",
+    "build_token": "编译 Token",
+    "build_token_desc": "来自 BUILDTOKEN.key 的编译时 token（按 | 分隔）",
+    "cancel": "取消",
+    "save": "保存"
+  },
+  "progress": {
+    "testing": "正在测试：{{node}}",
+    "initializing": "初始化中...",
+    "in_queue": "{{count}} 个在队列中"
+  },
+  "matrices": {
+    "TEST_PING_RTT": "延迟",
+    "TEST_PING_CONN": "连通性",
+    "TEST_PING_PACKET_LOSS": "丢包率",
+    "SPEED_AVERAGE": "平均速度",
+    "SPEED_MAX": "最大速度",
+    "GEOIP_OUTBOUND": "归属地"
+  }
+}

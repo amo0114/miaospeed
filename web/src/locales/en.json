@@ -1,0 +1,91 @@
+{
+  "header": {
+    "title": "MiaoSpeed",
+    "disconnected": "Disconnected",
+    "connecting": "Connecting...",
+    "connected": "Connected",
+    "error": "Error",
+    "connect": "Connect",
+    "disconnect": "Disconnect",
+    "retry": "Retry",
+    "toggleTheme": "Toggle theme",
+    "toggleLang": "中文"
+  },
+  "app": {
+    "error_prefix": "Error:",
+    "footer": "MiaoSpeed WebUI"
+  },
+  "importer": {
+    "title": "Import Nodes",
+    "description": "Paste your Clash YAML config, subscription URL content, or proxy URIs",
+    "placeholder": "Paste your configuration here...\n\nSupported formats:\n- Clash YAML (with proxies: section)\n- Base64 subscription\n- vmess:// / trojan:// / ss:// URIs",
+    "file": "File",
+    "error_empty": "Please paste your proxy configuration",
+    "error_invalid": "No valid proxy nodes found. Please check your configuration format.",
+    "parse": "Parse Nodes",
+    "clear": "Clear",
+    "imported": "{{count}} node imported",
+    "imported_plural": "{{count}} nodes imported"
+  },
+  "test_panel": {
+    "title": "Test Configuration",
+    "description": "Select test type and start testing your proxy nodes",
+    "ping_only": "Ping Only",
+    "ping_desc": "RTT, HTTP Ping, Packet Loss, GeoIP",
+    "speed_test": "Speed Test",
+    "speed_desc": "Download/Upload Speed, RTT, GeoIP",
+    "full_test": "Full Test",
+    "full_desc": "All metrics including speed and ping",
+    "included_tests": "Included Tests:",
+    "nodes_to_test": "Nodes to test:",
+    "testing": "Testing...",
+    "start_test": "Start Test ({{count}} nodes)",
+    "connected": "Connected to MiaoSpeed backend",
+    "disconnected": "Not connected"
+  },
+  "results_table": {
+    "title": "Test Results",
+    "description_empty": "No results yet. Import nodes and start a test.",
+    "description_loading": "Waiting for results...",
+    "testing": "Testing in progress...",
+    "description_tested": "{{count}} node tested",
+    "description_tested_plural": "{{count}} nodes tested",
+    "copy": "Copy",
+    "csv": "CSV",
+    "col_node": "Node",
+    "col_type": "Type",
+    "col_rtt": "RTT",
+    "col_download": "Download",
+    "col_upload": "Upload",
+    "col_loss": "Loss",
+    "col_geoip": "GeoIP",
+    "col_time": "Time"
+  },
+  "settings": {
+    "title": "Settings",
+    "description": "Configure your MiaoSpeed backend connection",
+    "server_url": "Server URL",
+    "server_url_desc": "WebSocket URL of your MiaoSpeed backend",
+    "ws_path": "WebSocket Path",
+    "ws_path_desc": "Must match the -path parameter on the server",
+    "startup_token": "Startup Token",
+    "startup_token_desc": "Must match the -token parameter on the server",
+    "build_token": "Build Token",
+    "build_token_desc": "Compile-time token from BUILDTOKEN.key (segments separated by |)",
+    "cancel": "Cancel",
+    "save": "Save"
+  },
+  "progress": {
+    "testing": "Testing: {{node}}",
+    "initializing": "Initializing...",
+    "in_queue": "{{count}} in queue"
+  },
+  "matrices": {
+    "TEST_PING_RTT": "RTT",
+    "TEST_PING_CONN": "Connection",
+    "TEST_PING_PACKET_LOSS": "Packet Loss",
+    "SPEED_AVERAGE": "Avg Speed",
+    "SPEED_MAX": "Max Speed",
+    "GEOIP_OUTBOUND": "GeoIP"
+  }
+}
